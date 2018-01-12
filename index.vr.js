@@ -7,12 +7,14 @@ import {
   View,
 } from 'react-vr';
 import TitleScene from './components/scenes/TitleScene';
+import Dashboard from './components/scenes/Dashboard';
 
 export default class VideoApp extends React.Component {
   render() {
     return (
-      <View>
-        <TitleScene text={"Watch a Video"} />
+      <View >
+        
+        <Dashboard text={"Select Environment"} />
       </View>
     );
   }

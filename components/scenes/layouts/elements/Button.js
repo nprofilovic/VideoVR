@@ -12,12 +12,42 @@ class Button extends React.Component {
   constructor(props){
     super(props);
 
-    this.state = { slideLeft: new Animated.Value(1), fadeIn: new Animated.Value(0)};
+    this.state = { slideRight: new Animated.Value(1), fadeIn: new Animated.Value(0)};
   }
-
+  componentDidMount() {
+    Animated.sequence([
+      Animated.parallel([
+      Animated.timing(
+        this.state.slideRight,
+        {
+         toValue: 0,
+         duration: 2000,
+         easing: Easing.ease
+        }
+      ),
+      Animated.timing(
+        this.state.fadeIn,
+        {
+         toValue: 1,
+         duration: 2000,
+         easing: Easing.ease
+        }
+      )
+    ])
+  ]).start();
+  }
   render() {
     return (
-      <Animated.View style={{ margin: 0.1, height: 0.3, backgroundColor: '#A482DF', borderRadius: 0.1}}>
+      <Animated.View style={{
+    margin: 0.1,
+    height: 0.3,
+    backgroundColor: '#A482DF',
+    borderRadius: 0.1,
+    opacity: this.state.fadeIn,
+    transform: [
+      {translateX: this.state.slideRight}
+    ]
+  }}>
         <VrButton>
           <Text style={{fontSize: 0.2, textAlign: 'center', color: "#FFFFFF"}}>
           {this.props.text}
