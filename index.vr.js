@@ -13,8 +13,8 @@ export default class VideoApp extends React.Component {
   render() {
     return (
       <View >
-        
-        <Dashboard text={"Select Environment"} />
+
+        <Dashboard showButton={false} text={"Select Environment"} />
       </View>
     );
   }
