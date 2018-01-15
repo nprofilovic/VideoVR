@@ -25,7 +25,9 @@ class DashboardLayout extends React.Component {
       color1: "#A482DF",
       color2: "#DBDAF1",
       text: this.props.text,
-      borderWidths: [0, 0, 0, 0, 0, 0]
+      borderWidths: [0, 0, 0, 0, 0, 0],
+      selectionIndex: "",
+      stage: 1
     };
   }
 
@@ -59,29 +61,41 @@ class DashboardLayout extends React.Component {
     }
 
     switch (input) {
+        case 1:
+          this.setState({borderWidths: [0.05, 0, 0, 0, 0, 0], selectionIndex: 1});
+          break;
+        case 2:
+          this.setState({borderWidths: [0, 0.05, 0, 0, 0, 0], selectionIndex: 2});
+          break;
+        case 3:
+          this.setState({borderWidths: [0, 0, 0.05, 0, 0, 0], selectionIndex: 3});
+          break;
+        case 4:
+          this.setState({borderWidths: [0, 0, 0, 0.05, 0, 0], selectionIndex: 4});
+          break;
+        case 5:
+          this.setState({borderWidths: [0, 0, 0, 0, 0.05, 0], selectionIndex: 5});
+          break;
+        case 6:
+          this.setState({borderWidths: [0, 0, 0, 0, 0, 0.05], selectionIndex: 6});
+          break;
+      }
+    }
+
+  captureSelection(stage, value) {
+    switch (stage) {
       case 1:
-        this.setState({borderWidths: [0.05, 0, 0, 0, 0, 0]});
+        this.setState({selectedStreamID: value});
         break;
       case 2:
-        this.setState({borderWidths: [0, 0.05, 0, 0, 0, 0]});
-        break;
-      case 3:
-        this.setState({borderWidths: [0, 0, 0.05, 0, 0, 0]});
-        break;
-      case 4:
-        this.setState({borderWidths: [0, 0, 0, 0.05, 0, 0]});
-        break;
-      case 5:
-        this.setState({borderWidths: [0, 0, 0, 0, 0.05, 0]});
-        break;
-      case 6:
-        this.setState({borderWidths: [0, 0, 0, 0, 0, 0.05]});
+        this.setState({selectedEnv: value});
         break;
     }
   }
 
   updateScene() {
-    this.setState({color1: "#DBDAF1", color2: "#A482DF", text: "Watch Video"});
+    this.props.captureSelection(this.state.stage, this.state.selectionIndex);
+    this.setState({color1: "#DBDAF1", color2: "#A482DF", text: "Watch Video", stage: 2});
   }
 
   render() {
@@ -103,7 +117,12 @@ class DashboardLayout extends React.Component {
           }}
         >
           <MenuButtons/>
-          <TileButtons updateStage={this.updateStage.bind(this)} borderWidths={this.state.borderWidths}/>
+          <TileButtons
+            stage={this.state.stage}
+            environments={this.props.environments}
+            previews={this.props.previews}
+            updateStage={this.updateStage.bind(this)}
+            borderWidths={this.state.borderWidths}/>
           <ProgressCircles color1={this.state.color1} color2={this.state.color2}/>
         </Animated.View>
 
@@ -117,7 +136,14 @@ class DashboardLayout extends React.Component {
           transform: [{translate: [0, 0, -3]}],
           marginTop: -0.7
         }}>
-          <Button updateScene={this.updateScene.bind(this)} showButton={this.state.showButton} text={this.state.text}/>
+          <Button
+            updateScene={this.updateScene.bind(this)}
+            showButton={this.state.showButton}
+            text={this.state.text}
+            stage={this.state.stage}
+            changeScenes={this.props.changeScenes}
+            scene={this.props.scene}
+            selectionIndex={this.state.selectionIndex} />
         </View>
       </View>
     )

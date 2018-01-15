@@ -14,7 +14,13 @@ class Dashboard extends React.Component {
     return (
       <View>
         <Pano source={asset('fort-night.jpg')}/>
-        <DashboardLayout text={this.props.text} />
+        <DashboardLayout
+          environments={this.props.environments}
+          captureSelection={this.props.captureSelection}
+          previews={this.props.previews}
+          text={this.props.text}
+          changeScenes={this.props.changeScenes}
+          scene={this.props.scene} />
      </View>
     )
   }

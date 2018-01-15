@@ -13,7 +13,11 @@ class TitleScene extends React.Component {
     return (
       <View>
         <Pano source={asset('title-background.jpg')}/>
-        <TitleLayout text={this.props.text}/>
+        <TitleLayout
+          showButton={this.props.showButton}
+          text={this.props.text}
+          changeScenes={this.props.changeScenes}
+          scene={this.props.scene}/>
       </View>
     )
   }

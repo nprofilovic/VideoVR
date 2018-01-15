@@ -38,6 +38,21 @@ class Button extends React.Component {
   }
   render() {
     const showButton = this.props.showButton;
+    const currentScene = this.props.scene;
+    let nextScene;
+    switch (currentScene) {
+      case 1:
+        nextScene = 2;
+        break;
+      case 2:
+        nextScene = 3;
+        break;
+      case 3:
+        nextScene = 1;
+        break;
+    }
+    const stage = this.props.stage;
+    const selectionIndex = this.props.selectionIndex;
   return (
     <View>
       {showButton ? (
@@ -55,7 +70,21 @@ class Button extends React.Component {
             ]
           }}
         >
-          <VrButton onClick={this.props.updateScene}>
+        {currentScene === 2 ? (
+          <VrButton
+            onClick={
+              () => {
+                switch (stage) {
+                  case 1:
+                    this.props.updateScene();
+                    break;
+                  case 2:
+                    this.props.changeScenes(nextScene, selectionIndex);
+                    break;
+                }
+              }
+            }
+          >
             <Text
               style={{
                 fontSize: 0.2,
@@ -65,6 +94,18 @@ class Button extends React.Component {
             {this.props.text}
             </Text>
           </VrButton>
+          ) : (
+          <VrButton onClick={() => this.props.changeScenes(nextScene)}>
+            <Text
+              style={{
+                fontSize: 0.2,
+                textAlign: 'center',
+                color: "#FFFFFF"
+              }}>
+            {this.props.text}
+            </Text>
+          </VrButton>
+          )}
         </Animated.View>
         ) :(
           <View></View>
