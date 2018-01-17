@@ -9,7 +9,7 @@
     "open": "node -e \"require('xopen')('http://localhost:8081/vr/')\"",
     "devtools": "react-devtools",
     "test": "jest",
-    "deploy": "ns ./build --cmd 'list ./content -s'"
+    "deploy": "ns ./vr/build --cmd 'list ./content -s'"
   },
   "dependencies": {
     "ovrui": "~2.0.0",
